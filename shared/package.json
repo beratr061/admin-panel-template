@@ -1,0 +1,22 @@
+{
+  "name": "@admin-panel/shared",
+  "version": "1.0.0",
+  "description": "Shared types, DTOs, and constants for Admin Panel",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "shared",
+    "types",
+    "dto"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "rimraf": "^5.0.5"
+  }
+}

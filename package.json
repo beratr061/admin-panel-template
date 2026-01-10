@@ -1,0 +1,55 @@
+{
+  "name": "admin-panel-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-Stack Admin Panel Template with Next.js and NestJS",
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "npm run dev:client & npm run dev:server",
+    "dev:client": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
+    "build": "npm run build:shared && npm run build:client && npm run build:server",
+    "build:shared": "npm run build -w @admin-panel/shared",
+    "build:client": "npm run build -w client",
+    "build:server": "npm run build -w server",
+    "lint": "npm run lint -w client && npm run lint -w server",
+    "lint:fix": "npm run lint:fix -w client && npm run lint:fix -w server",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "admin-panel",
+    "nextjs",
+    "nestjs",
+    "typescript",
+    "monorepo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
+    "prettier": "3.7.4"
+  }
+}
