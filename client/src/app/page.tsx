@@ -15,13 +15,11 @@ export default function Home() {
   const router = useRouter();
 
   const handleLogin = () => {
-    console.log('Login button clicked');
-    window.location.href = '/login';
+    router.push('/login');
   };
 
   const handleRegister = () => {
-    console.log('Register button clicked');
-    window.location.href = '/register';
+    router.push('/register');
   };
 
   // Show loading state while checking auth

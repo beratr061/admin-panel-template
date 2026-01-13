@@ -23,15 +23,7 @@ export class AuthService {
       include: {
         roles: {
           include: {
-            role: {
-              include: {
-                permissions: {
-                  include: {
-                    permission: true,
-                  },
-                },
-              },
-            },
+            role: true,
           },
         },
       },
@@ -51,15 +43,8 @@ export class AuthService {
     }
 
     const roles = user.roles.map((ur) => ur.role.name);
-    const permissions = [
-      ...new Set(
-        user.roles.flatMap((ur) =>
-          ur.role.permissions.map((rp) => `${rp.permission.resource}.${rp.permission.action}`),
-        ),
-      ),
-    ];
 
-    const tokens = await this.generateTokens(user.id, user.email, roles, permissions);
+    const tokens = await this.generateTokens(user.id, user.email, roles);
     await this.saveRefreshToken(user.id, tokens.refreshToken, loginDto.rememberMe);
 
     return {
@@ -69,7 +54,6 @@ export class AuthService {
         name: user.name,
         avatar: user.avatar ?? undefined,
         roles,
-        permissions,
       },
       tokens: {
         accessToken: tokens.accessToken,
@@ -123,30 +107,15 @@ export class AuthService {
       include: {
         roles: {
           include: {
-            role: {
-              include: {
-                permissions: {
-                  include: {
-                    permission: true,
-                  },
-                },
-              },
-            },
+            role: true,
           },
         },
       },
     });
 
     const roles = user.roles.map((ur) => ur.role.name);
-    const permissions = [
-      ...new Set(
-        user.roles.flatMap((ur) =>
-          ur.role.permissions.map((rp) => `${rp.permission.resource}.${rp.permission.action}`),
-        ),
-      ),
-    ];
 
-    const tokens = await this.generateTokens(user.id, user.email, roles, permissions);
+    const tokens = await this.generateTokens(user.id, user.email, roles);
     await this.saveRefreshToken(user.id, tokens.refreshToken, false);
 
     return {
@@ -156,7 +125,6 @@ export class AuthService {
         name: user.name,
         avatar: user.avatar ?? undefined,
         roles,
-        permissions,
       },
       tokens: {
         accessToken: tokens.accessToken,
@@ -171,15 +139,7 @@ export class AuthService {
       include: {
         roles: {
           include: {
-            role: {
-              include: {
-                permissions: {
-                  include: {
-                    permission: true,
-                  },
-                },
-              },
-            },
+            role: true,
           },
         },
       },
@@ -193,15 +153,8 @@ export class AuthService {
     await this.prisma.refreshToken.delete({ where: { id: tokenId } });
 
     const roles = user.roles.map((ur) => ur.role.name);
-    const permissions = [
-      ...new Set(
-        user.roles.flatMap((ur) =>
-          ur.role.permissions.map((rp) => `${rp.permission.resource}.${rp.permission.action}`),
-        ),
-      ),
-    ];
 
-    const tokens = await this.generateTokens(user.id, user.email, roles, permissions);
+    const tokens = await this.generateTokens(user.id, user.email, roles);
     await this.saveRefreshToken(user.id, tokens.refreshToken, false);
 
     return tokens;
@@ -322,17 +275,49 @@ export class AuthService {
     return { message: 'Şifre başarıyla değiştirildi' };
   }
 
+  async getPermissions(userId: string): Promise<string[]> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        roles: {
+          include: {
+            role: {
+              include: {
+                permissions: {
+                  include: {
+                    permission: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Kullanıcı bulunamadı');
+    }
+
+    // Always return fresh permissions from database
+    return [
+      ...new Set(
+        user.roles.flatMap((ur) =>
+          ur.role.permissions.map((rp) => `${rp.permission.resource}.${rp.permission.action}`),
+        ),
+      ),
+    ];
+  }
+
   private async generateTokens(
     userId: string,
     email: string,
     roles: string[],
-    permissions: string[],
   ): Promise<TokenResponseDto & { refreshToken: string }> {
     const accessPayload: JwtPayload = {
       sub: userId,
       email,
       roles,
-      permissions,
     };
 
     const refreshPayload: RefreshTokenPayload = {

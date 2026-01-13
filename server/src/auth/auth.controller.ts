@@ -154,4 +154,14 @@ export class AuthController {
       changePasswordDto.newPassword,
     );
   }
+
+  @Get('permissions')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Get user permissions', description: 'Get fresh permissions from database' })
+  @ApiResponse({ status: 200, description: 'Permissions retrieved successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async getPermissions(@CurrentUser('sub') userId: string) {
+    const permissions = await this.authService.getPermissions(userId);
+    return { permissions };
+  }
 }
