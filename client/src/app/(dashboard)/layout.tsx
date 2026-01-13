@@ -18,11 +18,11 @@ import {
 
 const navItems = [
   {
-    label: "Home",
-    href: "/",
+    label: "Dashboard",
+    href: "/dashboard",
     icon: Home,
     items: [
-      { label: "Dashboard", href: "/", icon: LayoutDashboard },
+      { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
       { label: "Profile", href: "/profile", icon: UserCircle },
     ],
   },

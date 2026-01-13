@@ -1,32 +1,31 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import DashboardLayout from "./(dashboard)/layout";
-import DashboardPage from "./(dashboard)/page";
 
 export default function Home() {
   const { isAuthenticated, isLoading } = useAuth();
   const t = useTranslations();
+  const router = useRouter();
+
+  // Redirect authenticated users to dashboard
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      router.replace('/dashboard');
+    }
+  }, [isAuthenticated, isLoading, router]);
 
   // Show loading state while checking auth
-  if (isLoading) {
+  if (isLoading || isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
-    );
-  }
-
-  // If authenticated, show dashboard with layout
-  if (isAuthenticated) {
-    return (
-      <DashboardLayout>
-        <DashboardPage />
-      </DashboardLayout>
     );
   }
 

@@ -55,22 +55,22 @@ interface SidebarSlimProps {
 
 const defaultNavItems: NavItemType[] = [
   {
-    label: "Home",
-    href: "/",
+    label: "Dashboard",
+    href: "/dashboard",
     icon: Home,
     items: [
-      { label: "Dashboard", href: "/", icon: LayoutDashboard },
+      { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
       { label: "Users", href: "/users", icon: Users, permission: "users.read" },
       { label: "Roles", href: "/roles", icon: Shield, permission: "roles.read" },
     ],
   },
   {
-    label: "Dashboard",
-    href: "/dashboard",
+    label: "Analytics",
+    href: "/analytics",
     icon: BarChart3,
     items: [
-      { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
-      { label: "Analytics", href: "/dashboard/analytics", icon: PieChart },
+      { label: "Overview", href: "/analytics", icon: LayoutDashboard },
+      { label: "Reports", href: "/analytics/reports", icon: PieChart },
     ],
   },
   {
