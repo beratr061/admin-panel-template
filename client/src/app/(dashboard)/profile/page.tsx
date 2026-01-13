@@ -174,8 +174,8 @@ export default function ProfilePage() {
               <label className="text-sm font-medium">Roller</label>
               <div className="flex flex-wrap gap-1">
                 {user.roles && user.roles.length > 0 ? (
-                  user.roles.map((role) => (
-                    <Badge key={role.id} variant="secondary">
+                  user.roles.map((role, index) => (
+                    <Badge key={role.id || index} variant="secondary">
                       {role.name}
                     </Badge>
                   ))
