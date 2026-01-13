@@ -48,6 +48,11 @@ async function changePassword(data: { currentPassword: string; newPassword: stri
 export default function ProfilePage() {
   const queryClient = useQueryClient();
   const { user, isLoading: isUserLoading } = useAuth();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Profile form
   const profileForm = useForm<ProfileFormData>({
@@ -117,7 +122,8 @@ export default function ProfilePage() {
     });
   };
 
-  if (isUserLoading) {
+  // Show loading until mounted and data is ready
+  if (!mounted || isUserLoading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
