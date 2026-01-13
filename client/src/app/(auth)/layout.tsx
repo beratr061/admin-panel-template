@@ -1,9 +1,6 @@
-import type { Metadata } from 'next';
+"use client";
 
-export const metadata: Metadata = {
-  title: 'Kimlik Doğrulama | Admin Panel',
-  description: 'Admin Panel kimlik doğrulama sayfaları',
-};
+import { FadeTransition } from "@/components/layout/page-transition";
 
 export default function AuthLayout({
   children,
@@ -13,7 +10,7 @@ export default function AuthLayout({
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
       <div className="w-full max-w-md">
-        {children}
+        <FadeTransition>{children}</FadeTransition>
       </div>
     </div>
   );

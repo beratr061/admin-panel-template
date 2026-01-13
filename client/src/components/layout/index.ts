@@ -31,3 +31,9 @@ export {
 } from "./mobile-nav";
 
 export { LanguageSwitcher } from "./language-switcher";
+
+export {
+  PageTransition,
+  FadeTransition,
+  SlideTransition,
+} from "./page-transition";

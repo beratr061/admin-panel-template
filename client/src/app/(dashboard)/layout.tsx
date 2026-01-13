@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
+import { PageTransition } from "@/components/layout/page-transition";
 
 export default function DashboardLayout({
   children,
@@ -22,7 +23,9 @@ export default function DashboardLayout({
           onMenuClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           user={null}
         />
-        <main className="flex-1 bg-muted/30 p-6">{children}</main>
+        <main className="flex-1 bg-muted/30 p-6">
+          <PageTransition>{children}</PageTransition>
+        </main>
       </div>
     </div>
   );

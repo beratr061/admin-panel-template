@@ -1,8 +1,15 @@
-import { PrismaClient, Permission } from '@prisma/client';
+import 'dotenv/config';
+import { PrismaClient } from '@prisma/client';
+import type { Permission } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { faker } from '@faker-js/faker';
 import * as bcrypt from 'bcrypt';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const prisma = new PrismaClient({ adapter });
 
 // Define all available permissions
 const PERMISSIONS = [

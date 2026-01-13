@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // Public routes that don't require authentication
-const publicRoutes = ['/login', '/register', '/forgot-password'];
+const publicRoutes = ['/', '/login', '/register', '/forgot-password'];
 
 // Routes that should redirect to dashboard if already authenticated
 const authRoutes = ['/login', '/register', '/forgot-password'];
@@ -11,7 +11,9 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if the route is public
-  const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
+  const isPublicRoute = publicRoutes.some((route) => 
+    route === '/' ? pathname === '/' : pathname.startsWith(route)
+  );
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
   // Get the refresh token from cookies (indicates user might be authenticated)
