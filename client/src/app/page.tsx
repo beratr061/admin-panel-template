@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,15 +12,6 @@ import DashboardPage from "./(dashboard)/page";
 export default function Home() {
   const { isAuthenticated, isLoading } = useAuth();
   const t = useTranslations();
-  const router = useRouter();
-
-  const handleLogin = () => {
-    router.push('/login');
-  };
-
-  const handleRegister = () => {
-    router.push('/register');
-  };
 
   // Show loading state while checking auth
   if (isLoading) {
@@ -61,12 +52,16 @@ export default function Home() {
               and many more features to help you build admin panels quickly.
             </p>
             <div className="flex gap-4">
-              <Button type="button" onClick={handleLogin}>
-                {t('auth.login')}
-              </Button>
-              <Button type="button" variant="outline" onClick={handleRegister}>
-                {t('auth.register')}
-              </Button>
+              <Link href="/login">
+                <Button type="button">
+                  {t('auth.login')}
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button type="button" variant="outline">
+                  {t('auth.register')}
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
