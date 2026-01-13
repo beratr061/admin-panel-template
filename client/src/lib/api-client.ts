@@ -56,7 +56,19 @@ apiClient.interceptors.response.use(
       } catch (refreshError) {
         // Refresh failed - clear token and redirect to login
         setAccessToken(null);
-        if (typeof window !== 'undefined') {
+        
+        // Clear the invalid refresh token cookie by calling logout
+        try {
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+            {},
+            { withCredentials: true }
+          );
+        } catch {
+          // Ignore logout errors
+        }
+        
+        if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
           window.location.href = '/login';
         }
         return Promise.reject(refreshError);
