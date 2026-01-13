@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,16 +51,16 @@ export default function Home() {
               and many more features to help you build admin panels quickly.
             </p>
             <div className="flex gap-4">
-              <Link href="/login">
+              <a href="/login">
                 <Button type="button">
                   {t('auth.login')}
                 </Button>
-              </Link>
-              <Link href="/register">
+              </a>
+              <a href="/register">
                 <Button type="button" variant="outline">
                   {t('auth.register')}
                 </Button>
-              </Link>
+              </a>
             </div>
           </CardContent>
         </Card>
