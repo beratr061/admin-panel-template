@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* View Transition API styles for animated theme toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
