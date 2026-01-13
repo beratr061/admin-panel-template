@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AnimatedThemeToggler } from "@/components/animated-theme-toggler";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { useAuth } from "@/hooks/use-auth";
 

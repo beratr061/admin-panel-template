@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { AnimatedThemeToggler } from "@/components/animated-theme-toggler";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Bell, Globe, Moon, Shield } from "lucide-react";
 
