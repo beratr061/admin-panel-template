@@ -127,7 +127,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Get current user profile', description: 'Get authenticated user profile information' })
   @ApiResponse({ status: 200, description: 'Profile retrieved successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getProfile(@CurrentUser('sub') userId: string) {
+  async getProfile(@CurrentUser('id') userId: string) {
     return this.authService.getProfile(userId);
   }
 
@@ -138,7 +138,7 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async updateProfile(
-    @CurrentUser('sub') userId: string,
+    @CurrentUser('id') userId: string,
     @Body() updateProfileDto: UpdateProfileDto,
   ) {
     return this.authService.updateProfile(userId, updateProfileDto);
@@ -151,7 +151,7 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Invalid current password or validation error' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async changePassword(
-    @CurrentUser('sub') userId: string,
+    @CurrentUser('id') userId: string,
     @Body() changePasswordDto: ChangePasswordDto,
   ) {
     return this.authService.changePassword(
@@ -166,7 +166,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Get user permissions', description: 'Get fresh permissions from database' })
   @ApiResponse({ status: 200, description: 'Permissions retrieved successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getPermissions(@CurrentUser('sub') userId: string) {
+  async getPermissions(@CurrentUser('id') userId: string) {
     const permissions = await this.authService.getPermissions(userId);
     return { permissions };
   }

@@ -45,7 +45,7 @@ export class PermissionsController {
   @ApiOperation({ summary: 'Get my permissions', description: 'Get current user\'s effective permissions' })
   @ApiResponse({ status: 200, description: 'Permissions retrieved successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getMyPermissions(@CurrentUser('sub') userId: string) {
+  async getMyPermissions(@CurrentUser('id') userId: string) {
     return this.permissionsService.getEffectivePermissions(userId);
   }
 
