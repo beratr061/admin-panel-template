@@ -1,28 +1,74 @@
 "use client";
 
 import * as React from "react";
-import { Sidebar } from "@/components/layout/sidebar";
+import { SidebarSlim } from "@/components/layout/sidebar-slim";
 import { Header } from "@/components/layout/header";
 import { PageTransition } from "@/components/layout/page-transition";
+import {
+  LayoutDashboard,
+  Users,
+  Shield,
+  Settings,
+  LifeBuoy,
+  Home,
+  BarChart3,
+  PieChart,
+  UserCircle,
+} from "lucide-react";
+
+const navItems = [
+  {
+    label: "Home",
+    href: "/",
+    icon: Home,
+    items: [
+      { label: "Dashboard", href: "/", icon: LayoutDashboard },
+      { label: "Profile", href: "/profile", icon: UserCircle },
+    ],
+  },
+  {
+    label: "Management",
+    href: "/users",
+    icon: Users,
+    items: [
+      { label: "Users", href: "/users", icon: Users, permission: "users.read" },
+      { label: "Roles", href: "/roles", icon: Shield, permission: "roles.read" },
+    ],
+  },
+  {
+    label: "Analytics",
+    href: "/analytics",
+    icon: BarChart3,
+    items: [
+      { label: "Overview", href: "/analytics", icon: PieChart },
+      { label: "Reports", href: "/analytics/reports", icon: BarChart3 },
+    ],
+  },
+];
+
+const footerItems = [
+  {
+    label: "Support",
+    href: "/support",
+    icon: LifeBuoy,
+  },
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: Settings,
+  },
+];
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false);
-
   return (
     <div className="flex min-h-screen">
-      <Sidebar
-        collapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-      />
+      <SidebarSlim items={navItems} footerItems={footerItems} />
       <div className="flex flex-1 flex-col">
-        <Header
-          onMenuClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          user={null}
-        />
+        <Header user={null} />
         <main className="flex-1 bg-muted/30 p-6">
           <PageTransition>{children}</PageTransition>
         </main>
