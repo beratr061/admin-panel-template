@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
+
 import { cn } from "@/lib/utils"
 
 interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"button"> {
@@ -35,16 +36,6 @@ export const AnimatedThemeToggler = ({
 
   const toggleTheme = useCallback(async () => {
     if (!buttonRef.current) return
-
-    // Check if View Transitions API is supported
-    if (!document.startViewTransition) {
-      // Fallback for browsers without View Transitions API
-      const newTheme = !isDark
-      setIsDark(newTheme)
-      document.documentElement.classList.toggle("dark")
-      localStorage.setItem("theme", newTheme ? "dark" : "light")
-      return
-    }
 
     await document.startViewTransition(() => {
       flushSync(() => {
@@ -83,13 +74,10 @@ export const AnimatedThemeToggler = ({
     <button
       ref={buttonRef}
       onClick={toggleTheme}
-      className={cn(
-        "inline-flex items-center justify-center rounded-md p-2 hover:bg-accent hover:text-accent-foreground transition-colors",
-        className
-      )}
+      className={cn(className)}
       {...props}
     >
-      {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      {isDark ? <Sun /> : <Moon />}
       <span className="sr-only">Toggle theme</span>
     </button>
   )
