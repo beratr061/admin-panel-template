@@ -17,8 +17,11 @@ interface RegisterData {
 }
 
 interface AuthResponse {
-  accessToken: string;
   user: User;
+  tokens: {
+    accessToken: string;
+    expiresIn: number;
+  };
 }
 
 // Query keys for auth-related queries
@@ -88,7 +91,7 @@ export function useAuth() {
       return response.data;
     },
     onSuccess: (data) => {
-      setAccessToken(data.accessToken);
+      setAccessToken(data.tokens.accessToken);
       queryClient.setQueryData(authKeys.user(), data.user);
       // Invalidate permissions to fetch fresh data
       queryClient.invalidateQueries({ queryKey: authKeys.permissions() });
@@ -102,7 +105,7 @@ export function useAuth() {
       return response.data;
     },
     onSuccess: (data) => {
-      setAccessToken(data.accessToken);
+      setAccessToken(data.tokens.accessToken);
       queryClient.setQueryData(authKeys.user(), data.user);
       queryClient.invalidateQueries({ queryKey: authKeys.permissions() });
     },
