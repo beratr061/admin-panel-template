@@ -79,21 +79,27 @@ export class AuthController {
     };
   }
 
+  @Public()
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'User logout', description: 'Logout user and invalidate refresh token' })
   @ApiResponse({ status: 200, description: 'Logout successful' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async logout(
-    @CurrentUser('id') userId: string,
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<{ message: string }> {
     const refreshToken = request.cookies?.refreshToken;
-    await this.authService.logout(userId, refreshToken);
+    
+    // Try to invalidate refresh token if it exists
+    if (refreshToken) {
+      try {
+        await this.authService.logoutByToken(refreshToken);
+      } catch {
+        // Ignore errors - token might already be invalid
+      }
+    }
 
-    // Clear refresh token cookie
+    // Always clear refresh token cookie
     response.clearCookie('refreshToken', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
