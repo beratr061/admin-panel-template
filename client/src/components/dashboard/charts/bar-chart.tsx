@@ -36,6 +36,24 @@ export interface BarChartProps {
   className?: string;
 }
 
+// Custom legend renderer for theme compatibility
+const renderLegend = (props: { payload?: Array<{ value: string; color: string }> }) => {
+  const { payload } = props;
+  return (
+    <ul className="flex flex-wrap justify-center gap-4 text-sm mt-2">
+      {payload?.map((entry, index) => (
+        <li key={`legend-${index}`} className="flex items-center gap-2">
+          <span
+            className="h-3 w-3 rounded-sm"
+            style={{ backgroundColor: entry.color }}
+          />
+          <span className="text-muted-foreground">{entry.value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 export function BarChart({
   title,
   data,
@@ -56,28 +74,36 @@ export function BarChart({
       <CardContent>
         <ResponsiveContainer width="100%" height={height}>
           <RechartsBarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            {showGrid && <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />}
+            {showGrid && (
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="hsl(var(--border))"
+                vertical={false}
+              />
+            )}
             <XAxis
               dataKey="name"
-              tick={{ fontSize: 12 }}
+              tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
               tickLine={false}
               axisLine={false}
-              className="text-muted-foreground"
             />
             <YAxis
-              tick={{ fontSize: 12 }}
+              tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
               tickLine={false}
               axisLine={false}
-              className="text-muted-foreground"
             />
             <Tooltip
               contentStyle={{
                 backgroundColor: "hsl(var(--card))",
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "8px",
+                color: "hsl(var(--foreground))",
               }}
+              labelStyle={{ color: "hsl(var(--foreground))" }}
+              itemStyle={{ color: "hsl(var(--muted-foreground))" }}
+              cursor={{ fill: "hsl(var(--muted))", opacity: 0.3 }}
             />
-            {showLegend && <Legend />}
+            {showLegend && <Legend content={renderLegend} />}
             {series.map((s) => (
               <Bar
                 key={s.dataKey}

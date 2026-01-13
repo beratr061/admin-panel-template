@@ -22,7 +22,7 @@ export default function RegisterPage() {
     try {
       await register(data);
       toast.success('Kayıt başarılı!');
-      router.push('/');
+      router.push('/dashboard');
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : 'Kayıt yapılırken bir hata oluştu';

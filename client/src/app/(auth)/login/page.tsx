@@ -22,7 +22,7 @@ export default function LoginPage() {
     try {
       await login({ email: data.email, password: data.password });
       toast.success('Giriş başarılı!');
-      router.push('/');
+      router.push('/dashboard');
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : 'Giriş yapılırken bir hata oluştu';

@@ -167,12 +167,14 @@ export default function UsersPage() {
           <span className="font-medium">{row.original.name}</span>
         </div>
       ),
+      filterFn: "includesString",
     },
     {
       accessorKey: "email",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="E-posta" />
       ),
+      filterFn: "includesString",
     },
     {
       accessorKey: "roles",
@@ -275,8 +277,13 @@ export default function UsersPage() {
         getRowId={(row) => row.id}
         filterConfigs={[
           {
-            id: "search",
-            label: "Ara",
+            id: "name",
+            label: "Ad Soyad",
+            type: "text",
+          },
+          {
+            id: "email",
+            label: "E-posta",
             type: "text",
           },
         ]}

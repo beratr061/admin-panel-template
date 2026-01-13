@@ -12,6 +12,10 @@ export {
   type SidebarProps,
 } from "./sidebar";
 
+export { AppSidebar } from "./app-sidebar";
+
+export { SidebarSlim } from "./sidebar-slim";
+
 export {
   Header,
   type HeaderProps,
