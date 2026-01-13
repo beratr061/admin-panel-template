@@ -23,9 +23,6 @@ class UserDto {
 
   @ApiProperty({ example: ['SUPER_ADMIN'], description: 'User roles' })
   roles!: string[];
-
-  @ApiProperty({ example: ['users.read', 'users.create'], description: 'User permissions' })
-  permissions!: string[];
 }
 
 export class AuthResponseDto {
