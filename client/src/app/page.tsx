@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { AnimatedThemeToggler } from "@/components/animated-theme-toggler";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <main className="min-h-screen p-8">
       <div className="flex justify-end mb-8">
-        <ThemeToggle />
+        <AnimatedThemeToggler />
       </div>
       
       <div className="max-w-4xl mx-auto space-y-8">

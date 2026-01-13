@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { AnimatedThemeToggler } from "@/components/animated-theme-toggler";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Bell, Globe, Moon, Shield } from "lucide-react";
 
@@ -38,7 +38,7 @@ export default function SettingsPage() {
                   Açık, koyu veya sistem temasını seçin
                 </p>
               </div>
-              <ThemeToggle />
+              <AnimatedThemeToggler />
             </div>
           </CardContent>
         </Card>
